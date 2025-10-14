@@ -6,6 +6,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
+import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.persistence.PersistentDataType
 import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.potionKey
 import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.storage
@@ -32,6 +33,11 @@ class PlayerHandler : Listener {
 
     ChangeMyHeightService.applyPotion(player, potion)
     ChangeMyHeightService.effectOnDrink(player, potion)
+  }
+
+  @EventHandler
+  fun onRespawn(event: PlayerRespawnEvent) {
+    ChangeMyHeightService.clearPotionEffects(event.player)
   }
 
   @EventHandler
