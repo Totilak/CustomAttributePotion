@@ -51,7 +51,7 @@ class Command(private val plugin: CustomAttributePotion, private val storage: St
 
   private fun sendHelp(sender: CommandSender) {
     sender.sendRichMessage(
-        "<bold><aqua>CustomAttributePotion</aqua></bold> <gray>(${plugin.pluginMeta.version})</gray> - Плагин добавляющий зелья для изменения размера игрока.")
+        "<bold><aqua>CustomAttributePotion</aqua></bold> <gray>(${plugin.pluginMeta.version})</gray> - Плагин который добавляет настраиваемые зелья атрибутов.")
 
     if (sender.hasPermission(USE_PERMISSION)) {
       sender.sendRichMessage("<green>/cap check <yellow>- Показать активные эффекты")
