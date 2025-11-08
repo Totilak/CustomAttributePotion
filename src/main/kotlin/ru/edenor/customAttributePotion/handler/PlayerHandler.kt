@@ -1,4 +1,4 @@
-package ru.edenor.changeMyHeight.handler
+package ru.edenor.customAttributePotion.handler
 
 import org.bukkit.Material
 import org.bukkit.event.EventHandler
@@ -8,10 +8,10 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.persistence.PersistentDataType
-import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.potionKey
-import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.storage
-import ru.edenor.changeMyHeight.ChangeMyHeightService
-import ru.edenor.changeMyHeight.ChangeMyHeightService.getPotionData
+import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.potionKey
+import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.storage
+import ru.edenor.customAttributePotion.CustomAttributePotionService
+import ru.edenor.customAttributePotion.CustomAttributePotionService.getPotionData
 
 class PlayerHandler : Listener {
 
@@ -21,7 +21,7 @@ class PlayerHandler : Listener {
     val item = event.item
 
     if (item.type == Material.MILK_BUCKET) {
-      ChangeMyHeightService.clearPotionEffects(player)
+      CustomAttributePotionService.clearPotionEffects(player)
       return
     }
 
@@ -31,13 +31,13 @@ class PlayerHandler : Listener {
     val potionName = pdc.get(potionKey, PersistentDataType.STRING) ?: return
     val potion = storage.getPotion(potionName) ?: return
 
-    ChangeMyHeightService.applyPotion(player, potion)
-    ChangeMyHeightService.effectOnDrink(player, potion)
+    CustomAttributePotionService.applyPotion(player, potion)
+    CustomAttributePotionService.effectOnDrink(player, potion)
   }
 
   @EventHandler
   fun onRespawn(event: PlayerRespawnEvent) {
-    ChangeMyHeightService.clearPotionEffects(event.player)
+    CustomAttributePotionService.clearPotionEffects(event.player)
   }
 
   @EventHandler
@@ -45,14 +45,14 @@ class PlayerHandler : Listener {
     val player = event.player
     val potionData = player.getPotionData()
     if (potionData.isNotEmpty()) {
-      ChangeMyHeightService.startTask(player)
-      ChangeMyHeightService.sendPotionInfo(player)
+      CustomAttributePotionService.startTask(player)
+      CustomAttributePotionService.sendPotionInfo(player)
     }
   }
 
   @EventHandler
   fun onQuit(event: PlayerQuitEvent) {
     val player = event.player
-    ChangeMyHeightService.stopTaskAndSaveRemaining(player)
+    CustomAttributePotionService.stopTaskAndSaveRemaining(player)
   }
 }

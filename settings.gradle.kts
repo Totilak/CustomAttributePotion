@@ -1,1 +1,1 @@
-rootProject.name = "ChangeMyHeight"
+rootProject.name = "CustomAttributePotion"

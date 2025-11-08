@@ -1,12 +1,12 @@
-package ru.edenor.changeMyHeight.command
+package ru.edenor.customAttributePotion.command
 
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.Sound
 import org.bukkit.SoundCategory
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import ru.edenor.changeMyHeight.data.Potion
-import ru.edenor.changeMyHeight.data.Storage
+import ru.edenor.customAttributePotion.data.Potion
+import ru.edenor.customAttributePotion.data.Storage
 import java.time.Duration
 
 object PotionListMessenger {

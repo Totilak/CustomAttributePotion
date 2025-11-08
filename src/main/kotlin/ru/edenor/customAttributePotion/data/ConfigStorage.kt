@@ -1,12 +1,12 @@
-package ru.edenor.changeMyHeight.data
+package ru.edenor.customAttributePotion.data
 
 import net.kyori.adventure.text.format.TextColor
 import org.bukkit.NamespacedKey
 import org.bukkit.Particle
 import org.bukkit.configuration.Configuration
 import org.bukkit.configuration.ConfigurationSection
-import ru.edenor.changeMyHeight.ChangeMyHeight
-import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.POTION_SECTION
+import ru.edenor.customAttributePotion.CustomAttributePotion
+import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.POTION_SECTION
 import java.time.Duration
 
 class ConfigStorage(private var config: Configuration) : Storage {
@@ -30,7 +30,7 @@ class ConfigStorage(private var config: Configuration) : Storage {
   }
 
   override fun reload() {
-    val plugin = ChangeMyHeight.plugin
+    val plugin = CustomAttributePotion.plugin
     plugin.saveDefaultConfig()
     plugin.reloadConfig()
     config = plugin.config

@@ -1,4 +1,4 @@
-package ru.edenor.changeMyHeight.command
+package ru.edenor.customAttributePotion.command
 
 import com.destroystokyo.paper.profile.PlayerProfile
 import com.mojang.brigadier.context.CommandContext
@@ -10,19 +10,19 @@ import io.papermc.paper.command.brigadier.argument.resolvers.PlayerProfileListRe
 import io.papermc.paper.util.Tick
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
-import ru.edenor.changeMyHeight.ChangeMyHeight
-import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.GIVE_PERMISSION
-import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.LIST_PERMISSION
-import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.USE_PERMISSION
-import ru.edenor.changeMyHeight.ChangeMyHeightService.getPotionData
-import ru.edenor.changeMyHeight.command.CommandExtensions.requiresAnyPermission
-import ru.edenor.changeMyHeight.command.CommandExtensions.requiresPermission
-import ru.edenor.changeMyHeight.command.CommandExtensions.simplyRun
-import ru.edenor.changeMyHeight.data.Potion
-import ru.edenor.changeMyHeight.data.Storage
+import ru.edenor.customAttributePotion.CustomAttributePotion
+import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.GIVE_PERMISSION
+import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.LIST_PERMISSION
+import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.USE_PERMISSION
+import ru.edenor.customAttributePotion.CustomAttributePotionService.getPotionData
+import ru.edenor.customAttributePotion.command.CommandExtensions.requiresAnyPermission
+import ru.edenor.customAttributePotion.command.CommandExtensions.requiresPermission
+import ru.edenor.customAttributePotion.command.CommandExtensions.simplyRun
+import ru.edenor.customAttributePotion.data.Potion
+import ru.edenor.customAttributePotion.data.Storage
 
-class Command(private val plugin: ChangeMyHeight, private val storage: Storage) {
-  fun commands() = arrayOf(cmh)
+class Command(private val plugin: CustomAttributePotion, private val storage: Storage) {
+  fun commands() = arrayOf(cap)
 
   private val giveSection =
       literal("give")
@@ -39,8 +39,8 @@ class Command(private val plugin: ChangeMyHeight, private val storage: Storage) 
   private val reloadSection =
       literal("reload").requiresPermission(GIVE_PERMISSION).simplyRun(::reload)
 
-  private val cmh =
-      literal("cmh")
+  private val cap =
+      literal("cap")
           .requiresAnyPermission()
           .simplyRun(::sendHelp)
           .then(listSection)
@@ -51,20 +51,20 @@ class Command(private val plugin: ChangeMyHeight, private val storage: Storage) 
 
   private fun sendHelp(sender: CommandSender) {
     sender.sendRichMessage(
-        "<bold><aqua>ChangeMyHeight</aqua></bold> <gray>(${plugin.pluginMeta.version})</gray> - Плагин добавляющий зелья для изменения размера игрока.")
+        "<bold><aqua>CustomAttributePotion</aqua></bold> <gray>(${plugin.pluginMeta.version})</gray> - Плагин добавляющий зелья для изменения размера игрока.")
 
     if (sender.hasPermission(USE_PERMISSION)) {
-      sender.sendRichMessage("<green>/cmh check <yellow>- Показать активные эффекты")
+      sender.sendRichMessage("<green>/cap check <yellow>- Показать активные эффекты")
     }
 
     if (sender.hasPermission(LIST_PERMISSION)) {
-      sender.sendRichMessage("<green>/cmh list <yellow>- Показать доступные зелья")
+      sender.sendRichMessage("<green>/cap list <yellow>- Показать доступные зелья")
     }
 
     if (sender.hasPermission(GIVE_PERMISSION)) {
       sender.sendRichMessage(
-          "<green>/cmh give <potion_name> <username> <yellow> - Выдать зелье игроку")
-      sender.sendRichMessage("<green>/cmh reload <yellow>- Перезагружает конфигурацию плагина")
+          "<green>/cap give <potion_name> <username> <yellow> - Выдать зелье игроку")
+      sender.sendRichMessage("<green>/cap reload <yellow>- Перезагружает конфигурацию плагина")
     }
   }
 

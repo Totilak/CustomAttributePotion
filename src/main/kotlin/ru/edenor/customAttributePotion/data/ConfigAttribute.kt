@@ -1,4 +1,4 @@
-package ru.edenor.changeMyHeight.data
+package ru.edenor.customAttributePotion.data
 
 import org.bukkit.NamespacedKey
 import org.bukkit.Registry

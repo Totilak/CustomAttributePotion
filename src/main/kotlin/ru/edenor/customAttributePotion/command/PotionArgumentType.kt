@@ -1,4 +1,4 @@
-package ru.edenor.changeMyHeight.command
+package ru.edenor.customAttributePotion.command
 
 import com.mojang.brigadier.StringReader
 import com.mojang.brigadier.arguments.ArgumentType
@@ -10,8 +10,8 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import io.papermc.paper.command.brigadier.MessageComponentSerializer
 import io.papermc.paper.command.brigadier.argument.CustomArgumentType
 import net.kyori.adventure.text.Component
-import ru.edenor.changeMyHeight.data.Potion
-import ru.edenor.changeMyHeight.data.Storage
+import ru.edenor.customAttributePotion.data.Potion
+import ru.edenor.customAttributePotion.data.Storage
 import java.util.concurrent.CompletableFuture
 
 class PotionArgumentType(private val storage: Storage) : CustomArgumentType<Potion, String> {

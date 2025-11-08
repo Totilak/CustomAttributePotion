@@ -1,4 +1,4 @@
-package ru.edenor.changeMyHeight.util
+package ru.edenor.customAttributePotion.util
 
 import com.google.common.base.Function
 import com.google.common.collect.Lists

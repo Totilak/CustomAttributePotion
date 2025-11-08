@@ -1,8 +1,7 @@
-package ru.edenor.changeMyHeight.data
+package ru.edenor.customAttributePotion.data
 
 import io.papermc.paper.datacomponent.DataComponentTypes
 import io.papermc.paper.datacomponent.item.TooltipDisplay
-import java.time.Duration
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.format.NamedTextColor
 import net.kyori.adventure.text.format.TextColor
@@ -14,9 +13,10 @@ import org.bukkit.Particle
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.persistence.PersistentDataType
-import ru.edenor.changeMyHeight.ChangeMyHeight
-import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.potionKey
-import ru.edenor.changeMyHeight.command.PotionListMessenger.pluralDuration
+import ru.edenor.customAttributePotion.CustomAttributePotion
+import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.potionKey
+import ru.edenor.customAttributePotion.command.PotionListMessenger.pluralDuration
+import java.time.Duration
 
 data class Potion(
     val name: String,
@@ -28,7 +28,7 @@ data class Potion(
     val particleType: Particle?
 ) {
   val key: NamespacedKey
-    get() = NamespacedKey(ChangeMyHeight.plugin, name)
+    get() = NamespacedKey(CustomAttributePotion.plugin, name)
 
   @Suppress("UnstableApiUsage")
   fun makePotion(): ItemStack {

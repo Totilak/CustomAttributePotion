@@ -1,4 +1,4 @@
-package ru.edenor.changeMyHeight
+package ru.edenor.customAttributePotion
 
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask
 import io.papermc.paper.util.Tick
@@ -6,15 +6,15 @@ import org.bukkit.attribute.AttributeInstance
 import org.bukkit.attribute.AttributeModifier
 import org.bukkit.entity.Player
 import org.bukkit.persistence.PersistentDataContainer
-import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.potionKey
-import ru.edenor.changeMyHeight.ChangeMyHeight.Companion.storage
-import ru.edenor.changeMyHeight.command.PotionListMessenger
-import ru.edenor.changeMyHeight.data.Potion
-import ru.edenor.changeMyHeight.util.PotionData
-import ru.edenor.changeMyHeight.util.PotionDataPersistentDataType.Companion.POTION_DATA_LIST
+import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.potionKey
+import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.storage
+import ru.edenor.customAttributePotion.command.PotionListMessenger
+import ru.edenor.customAttributePotion.data.Potion
+import ru.edenor.customAttributePotion.util.PotionData
+import ru.edenor.customAttributePotion.util.PotionDataPersistentDataType.Companion.POTION_DATA_LIST
 import java.util.*
 
-object ChangeMyHeightService {
+object CustomAttributePotionService {
 
   val activeTasks: MutableMap<UUID, ScheduledTask> = mutableMapOf()
 
@@ -35,7 +35,7 @@ object ChangeMyHeightService {
     activeTasks.remove(player.uniqueId)?.cancel()
     activeTasks[player.uniqueId] =
         player.scheduler.runAtFixedRate(
-            ChangeMyHeight.plugin,
+            CustomAttributePotion.plugin,
             {
               val expired = player.decrementAndReturnExpiredPotionData()
               for (potionData in expired) {
@@ -72,7 +72,7 @@ object ChangeMyHeightService {
 
   private fun clearPluginAttributeModifiers(attribute: AttributeInstance) {
     attribute.modifiers
-        .filter { mod -> mod.key.namespace == ChangeMyHeight.plugin.name.lowercase(Locale.ROOT) }
+        .filter { mod -> mod.key.namespace == CustomAttributePotion.plugin.name.lowercase(Locale.ROOT) }
         .forEach(attribute::removeModifier)
   }
 

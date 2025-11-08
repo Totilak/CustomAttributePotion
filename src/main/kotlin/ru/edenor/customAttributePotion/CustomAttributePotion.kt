@@ -1,16 +1,16 @@
-package ru.edenor.changeMyHeight
+package ru.edenor.customAttributePotion
 
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents
 import io.papermc.paper.threadedregions.scheduler.ScheduledTask
 import org.bukkit.NamespacedKey
 import org.bukkit.plugin.java.JavaPlugin
-import ru.edenor.changeMyHeight.ChangeMyHeightService.activeTasks
-import ru.edenor.changeMyHeight.command.Command
-import ru.edenor.changeMyHeight.data.ConfigStorage
-import ru.edenor.changeMyHeight.data.Storage
-import ru.edenor.changeMyHeight.handler.PlayerHandler
+import ru.edenor.customAttributePotion.CustomAttributePotionService.activeTasks
+import ru.edenor.customAttributePotion.command.Command
+import ru.edenor.customAttributePotion.data.ConfigStorage
+import ru.edenor.customAttributePotion.data.Storage
+import ru.edenor.customAttributePotion.handler.PlayerHandler
 
-class ChangeMyHeight : JavaPlugin() {
+class CustomAttributePotion : JavaPlugin() {
 
   override fun onEnable() {
     plugin = this
@@ -41,6 +41,6 @@ class ChangeMyHeight : JavaPlugin() {
     const val POTION_SECTION = "potions"
     lateinit var potionKey : NamespacedKey
     lateinit var storage: Storage
-    lateinit var plugin: ChangeMyHeight
+    lateinit var plugin: CustomAttributePotion
   }
 }

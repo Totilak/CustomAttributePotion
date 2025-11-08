@@ -1,4 +1,4 @@
-package ru.edenor.changeMyHeight.data
+package ru.edenor.customAttributePotion.data
 
 interface Storage {
   fun getPotions(): List<Potion>

@@ -1,15 +1,15 @@
-name: ChangeMyHeight
+name: CustomAttributePotion
 version: ${version}
-main: ru.edenor.changeMyHeight.ChangeMyHeight
+main: ru.edenor.customAttributePotion.CustomAttributePotion
 api-version: '1.21.7'
 author: Totilak
 contributors: [WesOrangePower]
-description: desc
+description: "Плагин для Minecraft, который добавляет настраиваемые зелья атрибутов."
 folia-supported: true
 permissions:
-  cmh.give:
+  cap.give:
     description: Права для выдачи зелий
-  cmh.use:
-    description: Права для использований плагина, как игрок (cmh check)
-  cmh.list:
+  cap.use:
+    description: Права для использований плагина, как игрок (cap check)
+  cap.list:
     description: Права для просмотра списка зелий
