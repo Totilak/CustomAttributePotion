@@ -6,10 +6,10 @@ potions: #Список зелий
       "minecraft:step_height": 0.2 #Атрибут высоты авто подъема на блоки, по умолчанию 0.7
       "minecraft:movement_speed": 0.1 # Атрибут скорости игрока, делает быстрее на 0.1
     color: '#bfff00' #Цвет бутылочки зелья и его отображения в чате
-    duration: 40 #Длительность зелья, в секундах
+    duration: 300 #Длительность зелья, в секундах
     description: "Уменьшает в 2 раза, это плохо?" #Описание зелья
     particleType: "firework" #Частицы при использовании, список частиц можно посмотреть тут 'https://minecraft.wiki/w/Particles_(Java_Edition)'
-  normal:
+  gravitron:
     title: 'Гравитрон'
     attributes:
       "minecraft:gravity": 0.02
@@ -25,7 +25,7 @@ potions: #Список зелий
       "minecraft:step_height": 1.6
       "minecraft:movement_speed": 0.07
     color: '#ff0000'
-    duration: 50
+    duration: 300
     description: "Увеличивает размер в 2 раза, вам тяжело двигаться?"
     particleType: "composter"
   abyss:
@@ -40,3 +40,11 @@ potions: #Список зелий
     duration: 80
     description: "В воде вам становится гораздо лучше"
     particleType: "sculk_charge_pop"
+  luck:
+    title: 'Фортуна'
+    attributes:
+      "minecraft:luck": 100.0  # любое значение между -1024 и 1024
+    color: '#ffff00'
+    duration: 15
+    description: "Везение на вашей стороне!"
+    particleType: "happy_villager"

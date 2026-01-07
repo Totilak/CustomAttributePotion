@@ -9,6 +9,7 @@ import ru.edenor.customAttributePotion.command.Command
 import ru.edenor.customAttributePotion.data.ConfigStorage
 import ru.edenor.customAttributePotion.data.Storage
 import ru.edenor.customAttributePotion.handler.PlayerHandler
+import ru.edenor.customAttributePotion.handler.VaultLootHandler
 
 class CustomAttributePotion : JavaPlugin() {
 
@@ -19,11 +20,13 @@ class CustomAttributePotion : JavaPlugin() {
     potionKey = NamespacedKey(this, "potions")
 
     server.pluginManager.registerEvents(PlayerHandler(), this)
+    server.pluginManager.registerEvents(VaultLootHandler(), this)
 
     lifecycleManager.registerEventHandler(LifecycleEvents.COMMANDS) { commands ->
       Command(this, storage).commands().forEach { commands.registrar().register(it) }
     }
   }
+
 
   override fun onDisable() {
     activeTasks.values.forEach(ScheduledTask::cancel)

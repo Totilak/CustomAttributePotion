@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "ru.edenor"
-version = "1.0.6"
+version = "1.0.66"
 
 repositories {
   mavenCentral()

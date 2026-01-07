@@ -1,17 +1,20 @@
 package ru.edenor.customAttributePotion.handler
 
 import org.bukkit.Material
+import org.bukkit.World
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import org.bukkit.event.player.PlayerRespawnEvent
+import org.bukkit.event.world.LootGenerateEvent
 import org.bukkit.persistence.PersistentDataType
 import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.potionKey
 import ru.edenor.customAttributePotion.CustomAttributePotion.Companion.storage
 import ru.edenor.customAttributePotion.CustomAttributePotionService
 import ru.edenor.customAttributePotion.CustomAttributePotionService.getPotionData
+import org.bukkit.inventory.ItemStack
 
 class PlayerHandler : Listener {
 
@@ -27,6 +30,7 @@ class PlayerHandler : Listener {
 
     if (item.type != Material.POTION || !item.hasItemMeta()) return
 
+    val nbt = item.itemMeta
     val pdc = item.itemMeta.persistentDataContainer
     val potionName = pdc.get(potionKey, PersistentDataType.STRING) ?: return
     val potion = storage.getPotion(potionName) ?: return
@@ -56,3 +60,4 @@ class PlayerHandler : Listener {
     CustomAttributePotionService.stopTaskAndSaveRemaining(player)
   }
 }
+
