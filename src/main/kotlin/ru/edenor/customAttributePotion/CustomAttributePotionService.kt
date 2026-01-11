@@ -13,6 +13,7 @@ import ru.edenor.customAttributePotion.data.Potion
 import ru.edenor.customAttributePotion.util.PotionData
 import ru.edenor.customAttributePotion.util.PotionDataPersistentDataType.Companion.POTION_DATA_LIST
 import java.util.*
+import org.bukkit.attribute.Attribute
 
 object CustomAttributePotionService {
 
@@ -53,22 +54,43 @@ object CustomAttributePotionService {
   }
 
   private fun applyAttribute(player: Player, potion: Potion) {
-    for (configAttribute in potion.attributes) {
-      val attribute = configAttribute.bukkitAttribute
-      val playerAttribute =
-          player.getAttribute(attribute)
-              ?: throw IllegalStateException("Player ${player.name} has no attribute '$attribute'")
+    forEachValidAttribute(potion) { attribute, value ->
+      val playerAttribute = player.getAttribute(attribute)
 
-      clearPluginAttributeModifiers(playerAttribute)
+      if (playerAttribute == null) {
+        CustomAttributePotion.plugin.logger.warning(
+          "[CAP] Player ${player.name} does not support attribute $attribute"
+        )
+      } else {
+        clearPluginAttributeModifiers(playerAttribute)
 
-      val base = playerAttribute.baseValue
-      val result = configAttribute.value - base
-      val attributeModifier =
-          AttributeModifier(potion.key, result, AttributeModifier.Operation.ADD_NUMBER)
+        val base = playerAttribute.baseValue
+        val delta = value - base
 
-      playerAttribute.addModifier(attributeModifier)
+        playerAttribute.addModifier(
+          AttributeModifier(
+            potion.key,
+            delta,
+            AttributeModifier.Operation.ADD_NUMBER
+          )
+        )
+      }
     }
   }
+
+
+  inline fun forEachValidAttribute(
+    potion: Potion,
+    block: (attribute: Attribute, value: Double) -> Unit
+  ) {
+    potion.attributes.forEach { configAttribute ->
+      val attribute = configAttribute.bukkitAttribute ?: return@forEach
+      block(attribute, configAttribute.value)
+    }
+  }
+
+
+
 
   private fun clearPluginAttributeModifiers(attribute: AttributeInstance) {
     attribute.modifiers
@@ -91,12 +113,15 @@ object CustomAttributePotionService {
     PotionListMessenger.sendEndedInfo(player,potion)
   }
 
-  fun removeModifiers(player: Player, potion : Potion) {
+  fun removeModifiers(player: Player, potion: Potion) {
     player.removePotionData(potion.name)
-    potion.attributes.forEach {
-      player.getAttribute(it.bukkitAttribute)?.removeModifier(potion.key)
+
+    forEachValidAttribute(potion) { attribute, _ ->
+      player.getAttribute(attribute)?.removeModifier(potion.key)
     }
   }
+
+
 
   fun removeModifiers(player: Player) {
     player.getPotionData().forEach {

@@ -34,7 +34,23 @@ class ConfigStorage(private var config: Configuration) : Storage {
     plugin.saveDefaultConfig()
     plugin.reloadConfig()
     config = plugin.config
+
+    val potions = getPotions()
+    val invalidAttributes =
+      potions.flatMap { potion ->
+        potion.attributes.filter { it.bukkitAttribute == null }
+      }
+
+    if (invalidAttributes.isNotEmpty()) {
+      plugin.logger.severe(
+        "[CAP] Loaded with ${invalidAttributes.size} invalid attribute(s). " +
+            "Some potion effects will be ignored."
+      )
+    } else {
+      plugin.logger.info("[CAP] Config loaded successfully.")
+    }
   }
+
 
   private fun readTemplate(section: ConfigurationSection): Potion {
     return Potion(
@@ -51,13 +67,20 @@ class ConfigStorage(private var config: Configuration) : Storage {
   }
 
   private fun parseAttributes(section: ConfigurationSection): List<ConfigAttribute> =
-      section.getKeys(false).map { key ->
-        val attributeKey =
-            NamespacedKey.fromString(key)
-                ?: throw IllegalArgumentException(
-                    "${section.currentPath} has broken attribute '$key'")
-        val value = section.getDouble(key)
-        ConfigAttribute(attributeKey, value)
-      }
+    section.getKeys(false).mapNotNull { key ->
+      val namespacedKey =
+        NamespacedKey.fromString(key)
+          ?: run {
+            CustomAttributePotion.plugin.logger.severe(
+              "[CAP] Invalid attribute key syntax: '$key' " +
+                  "in ${section.currentPath}"
+            )
+            return@mapNotNull null
+          }
+
+      val value = section.getDouble(key)
+      ConfigAttribute(namespacedKey, value)
+    }
+
 
 }
